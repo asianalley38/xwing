@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xwing | Community to Buy & Sell Fiat & Coin</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Inter, Arial, sans-serif;
+      background: #030912;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1120px, 90%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(3, 9, 18, .88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    nav {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    .logo-mark {
+      color: #ffb31a;
+      font-size: 24px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      color: #b9c3d6;
+      font-size: 14px;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .lang-btn {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .lang-btn:hover {
+      background: rgba(255,255,255,.08);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: #1f8bff;
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .btn.orange {
+      background: #ffb31a;
+      color: #06101e;
+    }
+
+    .btn.outline {
+      background: transparent;
+      border: 1px solid #1f8bff;
+      color: #8dc8ff;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 620px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .glow-left,
+    .glow-right {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      filter: blur(4px);
+      opacity: .9;
+    }
+
+    .glow-left {
+      left: -110px;
+      top: 130px;
+      background: #985cff;
+      box-shadow: 0 0 130px #985cff;
+    }
+
+    .glow-right {
+      right: -120px;
+      bottom: 50px;
+      background: #4c92ff;
+      box-shadow: 0 0 150px #4c92ff;
+    }
+
+    .badge {
+      display: inline-block;
+      color: #7dff9e;
+      background: rgba(0,255,128,.08);
+      border: 1px solid rgba(0,255,128,.25);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 8vw, 72px);
+      line-height: 1.05;
+      margin-bottom: 18px;
+    }
+
+    h1 span { color: #3fa2ff; }
+
+    .hero p {
+      max-width: 680px;
+      margin: 0 auto 28px;
+      color: #c6d0e0;
+    }
+
+    .features-mini {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      margin: 30px 0;
+      color: #b9c3d6;
+      font-size: 14px;
+    }
+
+    section { padding: 95px 0; }
+
+    .dark-panel { background: #0b1a2a; }
+
+    .section-title {
+      font-size: 32px;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .muted {
+      color: #b9c3d6;
+      max-width: 620px;
+    }
+
+    .crypto-table {
+      margin-top: 34px;
+      max-width: 760px;
+    }
+
+    .coin-row {
+      display: grid;
+      grid-template-columns: 48px 1fr 150px 100px 130px;
+      align-items: center;
+      gap: 18px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .coin-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+    }
+
+    .gel { background: #f7931a; }
+    .baht { background: #345d9d; }
+    .usd { background: #627eea; }
+    .usdt { background: #26a17b; }
+    .btc { background: #f7931a; }
+
+    .red { color: #ff5c77; }
+    .green { color: #15e28a; }
+
+    .trade-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .pill {
+      border: 1px solid #1f8bff;
+      padding: 6px 13px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 50px;
+    }
+
+    .card {
+      background: #0c1b2a;
+      border-radius: 14px;
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,.05);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: #1f8bff;
+      margin-bottom: 22px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .illustration {
+      min-height: 280px;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 30% 30%, #1f8bff55, transparent 34%),
+        linear-gradient(135deg, #0e2944, #06101e);
+      display: grid;
+      place-items: center;
+      font-size: 82px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .faq {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    footer {
+      padding: 70px 0 35px;
+      background: #030912;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(4, 1fr);
+      gap: 32px;
+      color: #b9c3d6;
+      font-size: 14px;
+    }
+
+    footer h4 {
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    footer li {
+      list-style: none;
+      margin: 8px 0;
+    }
+
+    @media (max-width: 850px) {
+      nav {
+        height: auto;
+        padding: 16px 0;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-actions {
+        flex-wrap: wrap;
+      }
+
+      .features-mini,
+      .split,
+      .grid-3,
+      .steps,
+      .faq,
+      .footer-grid {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .coin-row {
+        grid-template-columns: 40px 1fr;
+      }
+
+      .coin-row > span:nth-child(n+3),
+      .trade-buttons {
+        grid-column: 2;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="container">
+      <div class="logo">
+        <span class="logo-mark">✦</span> Xwing
+      </div>
+
+      <div class="nav-links">
+        <a href="#crypto" data-i18n="navBuy">Buy</a>
+        <a href="#trade" data-i18n="navSell">Sell</a>
+        <a href="#how" data-i18n="navHow">How to do</a>
+        <a href="#faq" data-i18n="navQuestions">Questions</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+        <button class="lang-btn" onclick="setLanguage('th')">ไทย</button>
+        <a data-i18n="login">Login</a>
+        <a class="btn orange" href="#crypto" data-i18n="signup">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="glow-left"></div>
+      <div class="glow-right"></div>
+
+      <div class="container">
+        <div class="badge" data-i18n="badge">Reliable • Best Rates • Secure</div>
+
+        <h1 data-i18n="heroTitle">
+          Buy & Sell <span>Fiat & Coins</span>
+        </h1>
+
+        <p data-i18n="heroText">
+          Buy GEL, BAHT, USDT, BITCOIN, and more on Xwing Community
+        </p>
+
+        <div class="features-mini">
+          <span data-i18n="featureEscrow">🔐 Secure Escrow</span>
+          <span data-i18n="featureMiddleman">🛡️ Reliable middleman</span>
+          <span data-i18n="featureSupport">🎧 24/7 Support</span>
+        </div>
+
+        <a class="btn" href="#crypto" data-i18n="goCommunity">Go Community</a>
+      </div>
+    </section>
+
+    <section id="crypto">
+      <div class="container">
+        <h2 class="section-title" data-i18n="chooseTitle">Choose Your Option</h2>
+        <p class="muted" data-i18n="chooseText">
+          Trade your favorite directly with other users on Xwing.
+        </p>
+
+        <div class="crypto-table">
+          <div class="coin-row">
+            <div class="coin-icon gel">₾</div>
+            <strong data-i18n="gel">Georgian GEL</strong>
+            <span>11.8 - 12.3 BAHT</span>
+            <span class="red">-1.54%</span>
+            <div class="trade-buttons">
+              <span class="pill" data-i18n="buy">Buy</span>
+              <span class="pill" data-i18n="sell">Sell</span>
+            </div>
+          </div>
+
+          <div class="coin-row">
+            <div class="coin-icon baht">฿</div>
+            <strong data-i18n="baht">Thailand BAHT</strong>
+            <span>12.2 - 12.8 BAHT</span>
+            <span class="red">-2.43%</span>
+            <div class="trade-buttons">
+              <span class="pill" data-i18n="buy">Buy</span>
+              <span class="pill" data-i18n="sell">Sell</span>
+            </div>
+          </div>
+
+          <div class="coin-row">
+            <div class="coin-icon usd">$</div>
+            <strong data-i18n="usd">Dollars USD</strong>
+            <span>32.21 - 32.80 BAHT</span>
+            <span class="red">-1.07%</span>
+            <div class="trade-buttons">
+              <span class="pill" data-i18n="buy">Buy</span>
+              <span class="pill" data-i18n="sell">Sell</span>
+            </div>
+          </div>
+
+          <div class="coin-row">
+            <div class="coin-icon usdt">₮</div>
+            <strong>Tether USDT</strong>
+            <span>32.21 - 32.80 BAHT</span>
+            <span class="green">0.01%</span>
+            <div class="trade-buttons">
+              <span class="pill" data-i18n="buy">Buy</span>
+              <span class="pill" data-i18n="sell">Sell</span>
+            </div>
+          </div>
+
+          <div class="coin-row">
+            <div class="coin-icon btc">₿</div>
+            <strong>Bitcoin</strong>
+            <span>2,200,000 - 2,500,000 BAHT</span>
+            <span class="red">-1.09%</span>
+            <div class="trade-buttons">
+              <span class="pill" data-i18n="buy">Buy</span>
+              <span class="pill" data-i18n="sell">Sell</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-icon">🔒</div>
+            <h3 data-i18n="escrowTitle">Escrow Network</h3>
+            <p class="muted" data-i18n="escrowText">
+              Trade safely with protected transactions and clear release rules.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3 data-i18n="paymentTitle">Multiple Payment Options</h3>
+            <p class="muted" data-i18n="paymentText">
+              Connect with buyers and sellers using flexible payment methods.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🚀</div>
+            <h3 data-i18n="trustedTitle">Trusted Network</h3>
+            <p class="muted" data-i18n="trustedText">
+              Build your reputation and trade with verified community members.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="trade" class="dark-panel">
+      <div class="container split">
+        <div class="illustration">📊</div>
+
+        <div>
+          <h2 class="section-title" data-i18n="transparencyTitle">Trade with Transparency</h2>
+          <p class="muted" data-i18n="transparencyText">
+            Xwing gives users a clean, secure place to buy and sell Fiat & Coins with confidence.
+            Compare offers, choose your partner, and complete trades with escrow protection.
+          </p>
+          <br>
+          <a class="btn" href="#" data-i18n="startTrading">Start Trading</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-panel">
+      <div class="container split">
+        <div>
+          <h2 class="section-title" data-i18n="secureTitle">Secure Trading Made Easy</h2>
+          <p class="muted" data-i18n="secureText">
+            Create an account, choose a crypto asset, select an offer, and complete your transaction through a simple step-by-step trading flow.
+          </p>
+          <br>
+          <a class="btn orange" href="#" data-i18n="knowMore">Know More</a>
+        </div>
+
+        <div class="illustration">🛡️</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container split">
+        <div></div>
+
+        <div>
+          <h2 class="section-title" data-i18n="helpTitle">Find Help with 24/7 Customer Support</h2>
+          <p class="muted" data-i18n="helpText">
+            Get assistance whenever you need it. Xwing support helps with account questions, trades, and platform guidance.
+          </p>
+          <br>
+          <a class="btn orange" href="#" data-i18n="chatNow">Chat Now</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-panel">
+      <div class="container">
+        <h2 class="section-title" data-i18n="knowledgeTitle">Expand Your Trading Knowledge</h2>
+        <p class="muted" data-i18n="knowledgeText">
+          Learn basic investments, peer-to-peer safety, wallet protection, and smarter ways to manage digital assets.
+        </p>
+        <br>
+        <a class="btn orange" href="#" data-i18n="startLearning">Start Learning</a>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="container">
+        <h2 class="section-title" data-i18n="howTitle">How it works?</h2>
+        <p class="muted" data-i18n="howText">Trade on Xwing in three simple steps.</p>
+
+        <div class="steps">
+          <div class="card">
+            <h3 data-i18n="registerTitle">Register</h3>
+            <p class="muted" data-i18n="registerText">
+              Create your Xwing account and set up your profile.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 data-i18n="searchTitle">Search Offers</h3>
+            <p class="muted" data-i18n="searchText">
+              Find buy or sell offers that match your preferred payment method.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 data-i18n="tradeTitle">Start a Trade</h3>
+            <p class="muted" data-i18n="tradeText">
+              Open a protected trade and complete your transaction.
+            </p>
+          </div>
+        </div>
+
+        <br>
+        <center>
+          <a class="btn" href="#" data-i18n="startTrading">Start Trading</a>
+        </center>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <h2 class="section-title" data-i18n="faqTitle">Frequently Asked Questions</h2>
+
+        <div class="faq">
+          <div class="card">
+            <h3 data-i18n="faq1Title">What is Xwing?</h3>
+            <p class="muted" data-i18n="faq1Text">
+              Xwing is a peer-to-peer trading platform for buying and selling Fiat and digital assets.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 data-i18n="faq2Title">What can I trade?</h3>
+            <p class="muted" data-i18n="faq2Text">
+              You can place your orders and match with others.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 data-i18n="faq3Title">Is Xwing secure?</h3>
+            <p class="muted" data-i18n="faq3Text">
+              Xwing is designed around secure trading flows, escrow protection, and user reputation.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 data-i18n="faq4Title">Can I trade globally?</h3>
+            <p class="muted" data-i18n="faq4Text">
+              The platform can support traders across regions depending on available offers and payment methods.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="logo">
+          <span class="logo-mark">✦</span> Xwing
+        </div>
+        <p class="muted" data-i18n="footerText">A modern peer-to-peer trading platform.</p>
+      </div>
+
+      <div>
+        <h4 data-i18n="footerCommunity">Community</h4>
+        <ul>
+          <li data-i18n="footerMarket">Market</li>
+          <li data-i18n="footerOnSite">On-Site</li>
+          <li data-i18n="footerQuestion">Question</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 data-i18n="footerMarkets">Markets</h4>
+        <ul>
+          <li data-i18n="buy">Buy</li>
+          <li data-i18n="sell">Sell</li>
+          <li data-i18n="footerOffers">Offers</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 data-i18n="footerSupport">Support</h4>
+        <ul>
+          <li data-i18n="footerContact">Contact</li>
+          <li data-i18n="footerSafety">Safety Tips</li>
+          <li data-i18n="footerStatus">Status</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 data-i18n="footerLegal">Legal</h4>
+        <ul>
+          <li data-i18n="footerTerms">Terms</li>
+          <li data-i18n="footerPrivacy">Privacy</li>
+          <li data-i18n="footerCookies">Cookies</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      en: {
+        navBuy: "Buy",
+        navSell: "Sell",
+        navHow: "How to do",
+        navQuestions: "Questions",
+        login: "Login",
+        signup: "Sign Up",
+        badge: "Reliable • Best Rates • Secure",
+        heroTitle: "Buy & Sell <span>Fiat & Coins</span>",
+        heroText: "Buy GEL, BAHT, USDT, BITCOIN, and more on Xwing Community",
+        featureEscrow: "🔐 Secure Escrow",
+        featureMiddleman: "🛡️ Reliable middleman",
+        featureSupport: "🎧 24/7 Support",
+        goCommunity: "Go Community",
+        chooseTitle: "Choose Your Option",
+        chooseText: "Trade your favorite directly with other users on Xwing.",
+        gel: "Georgian GEL",
+        baht: "Thailand BAHT",
+        usd: "Dollars USD",
+        buy: "Buy",
+        sell: "Sell",
+        escrowTitle: "Escrow Network",
+        escrowText: "Trade safely with protected transactions and clear release rules.",
+        paymentTitle: "Multiple Payment Options",
+        paymentText: "Connect with buyers and sellers using flexible payment methods.",
+        trustedTitle: "Trusted Network",
+        trustedText: "Build your reputation and trade with verified community members.",
+        transparencyTitle: "Trade with Transparency",
+        transparencyText: "Xwing gives users a clean, secure place to buy and sell Fiat & Coins with confidence. Compare offers, choose your partner, and complete trades with escrow protection.",
+        startTrading: "Start Trading",
+        secureTitle: "Secure Trading Made Easy",
+        secureText: "Create an account, choose a crypto asset, select an offer, and complete your transaction through a simple step-by-step trading flow.",
+        knowMore: "Know More",
+        helpTitle: "Find Help with 24/7 Customer Support",
+        helpText: "Get assistance whenever you need it. Xwing support helps with account questions, trades, and platform guidance.",
+        chatNow: "Chat Now",
+        knowledgeTitle: "Expand Your Trading Knowledge",
+        knowledgeText: "Learn basic investments, peer-to-peer safety, wallet protection, and smarter ways to manage digital assets.",
+        startLearning: "Start Learning",
+        howTitle: "How it works?",
+        howText: "Trade on Xwing in three simple steps.",
+        registerTitle: "Register",
+        registerText: "Create your Xwing account and set up your profile.",
+        searchTitle: "Search Offers",
+        searchText: "Find buy or sell offers that match your preferred payment method.",
+        tradeTitle: "Start a Trade",
+        tradeText: "Open a protected trade and complete your transaction.",
+        faqTitle: "Frequently Asked Questions",
+        faq1Title: "What is Xwing?",
+        faq1Text: "Xwing is a peer-to-peer trading platform for buying and selling Fiat and digital assets.",
+        faq2Title: "What can I trade?",
+        faq2Text: "You can place your orders and match with others.",
+        faq3Title: "Is Xwing secure?",
+        faq3Text: "Xwing is designed around secure trading flows, escrow protection, and user reputation.",
+        faq4Title: "Can I trade globally?",
+        faq4Text: "The platform can support traders across regions depending on available offers and payment methods.",
+        footerText: "A modern peer-to-peer trading platform.",
+        footerCommunity: "Community",
+        footerMarket: "Market",
+        footerOnSite: "On-Site",
+        footerQuestion: "Question",
+        footerMarkets: "Markets",
+        footerOffers: "Offers",
+        footerSupport: "Support",
+        footerContact: "Contact",
+        footerSafety: "Safety Tips",
+        footerStatus: "Status",
+        footerLegal: "Legal",
+        footerTerms: "Terms",
+        footerPrivacy: "Privacy",
+        footerCookies: "Cookies"
+      },
+
+      th: {
+        navBuy: "ซื้อ",
+        navSell: "ขาย",
+        navHow: "วิธีใช้งาน",
+        navQuestions: "คำถาม",
+        login: "เข้าสู่ระบบ",
+        signup: "สมัครสมาชิก",
+        badge: "น่าเชื่อถือ • เรทดีที่สุด • ปลอดภัย",
+        heroTitle: "ซื้อและขาย <span>เงินสดและคริปโต</span>",
+        heroText: "ซื้อ GEL, บาท, USDT, BITCOIN และอื่น ๆ ผ่านชุมชน Xwing",
+        featureEscrow: "🔐 ระบบคุ้มครองการซื้อขาย",
+        featureMiddleman: "🛡️ คนกลางที่เชื่อถือได้",
+        featureSupport: "🎧 ซัพพอร์ต 24/7",
+        goCommunity: "ไปที่ชุมชน",
+        chooseTitle: "เลือกตัวเลือกของคุณ",
+        chooseText: "ซื้อขายโดยตรงกับผู้ใช้งานคนอื่นบน Xwing",
+        gel: "เงินจอร์เจีย GEL",
+        baht: "เงินบาทไทย",
+        usd: "ดอลลาร์สหรัฐ USD",
+        buy: "ซื้อ",
+        sell: "ขาย",
+        escrowTitle: "ระบบ Escrow",
+        escrowText: "ซื้อขายอย่างปลอดภัยด้วยระบบคุ้มครองธุรกรรมและกฎการปล่อยเงินที่ชัดเจน",
+        paymentTitle: "ตัวเลือกการชำระเงินหลายแบบ",
+        paymentText: "เชื่อมต่อกับผู้ซื้อและผู้ขายด้วยวิธีชำระเงินที่ยืดหยุ่น",
+        trustedTitle: "เครือข่ายที่น่าเชื่อถือ",
+        trustedText: "สร้างชื่อเสียงของคุณและซื้อขายกับสมาชิกชุมชนที่ผ่านการตรวจสอบ",
+        transparencyTitle: "ซื้อขายอย่างโปร่งใส",
+        transparencyText: "Xwing ให้พื้นที่ที่ใช้งานง่ายและปลอดภัยสำหรับการซื้อขายเงินสดและคริปโตอย่างมั่นใจ เปรียบเทียบข้อเสนอ เลือกคู่ค้า และทำรายการด้วยระบบคุ้มครอง Escrow",
+        startTrading: "เริ่มซื้อขาย",
+        secureTitle: "การซื้อขายที่ปลอดภัยและง่าย",
+        secureText: "สร้างบัญชี เลือกสินทรัพย์คริปโต เลือกข้อเสนอ และทำธุรกรรมผ่านขั้นตอนที่เรียบง่าย",
+        knowMore: "ดูเพิ่มเติม",
+        helpTitle: "รับความช่วยเหลือจากซัพพอร์ต 24/7",
+        helpText: "รับความช่วยเหลือได้ทุกเวลาที่คุณต้องการ ทีมซัพพอร์ต Xwing ช่วยเรื่องบัญชี การซื้อขาย และการใช้งานแพลตฟอร์ม",
+        chatNow: "แชทเลย",
+        knowledgeTitle: "เพิ่มความรู้ด้านการซื้อขาย",
+        knowledgeText: "เรียนรู้พื้นฐานการลงทุน ความปลอดภัยแบบ P2P การป้องกันกระเป๋าเงิน และวิธีจัดการสินทรัพย์ดิจิทัลให้ดีขึ้น",
+        startLearning: "เริ่มเรียนรู้",
+        howTitle: "ทำงานอย่างไร?",
+        howText: "ซื้อขายบน Xwing ได้ง่าย ๆ ใน 3 ขั้นตอน",
+        registerTitle: "สมัครสมาชิก",
+        registerText: "สร้างบัญชี Xwing และตั้งค่าโปรไฟล์ของคุณ",
+        searchTitle: "ค้นหาข้อเสนอ",
+        searchText: "ค้นหาข้อเสนอซื้อหรือขายที่ตรงกับวิธีชำระเงินที่คุณต้องการ",
+        tradeTitle: "เริ่มการซื้อขาย",
+        tradeText: "เปิดรายการซื้อขายที่มีการคุ้มครองและทำธุรกรรมให้เสร็จสมบูรณ์",
+        faqTitle: "คำถามที่พบบ่อย",
+        faq1Title: "Xwing คืออะไร?",
+        faq1Text: "Xwing คือแพลตฟอร์มซื้อขายแบบ peer-to-peer สำหรับซื้อและขายเงินสดและสินทรัพย์ดิจิทัล",
+        faq2Title: "ฉันสามารถซื้อขายอะไรได้บ้าง?",
+        faq2Text: "คุณสามารถลงออเดอร์ของคุณและจับคู่กับผู้ใช้งานคนอื่นได้",
+        faq3Title: "Xwing ปลอดภัยหรือไม่?",
+        faq3Text: "Xwing ถูกออกแบบให้มีขั้นตอนการซื้อขายที่ปลอดภัย ระบบคุ้มครอง Escrow และระบบชื่อเสียงของผู้ใช้งาน",
+        faq4Title: "ฉันสามารถซื้อขายทั่วโลกได้ไหม?",
+        faq4Text: "แพลตฟอร์มสามารถรองรับผู้ซื้อขายจากหลายภูมิภาค ขึ้นอยู่กับข้อเสนอและวิธีชำระเงินที่มีอยู่",
+        footerText: "แพลตฟอร์มซื้อขายแบบ peer-to-peer ที่ทันสมัย",
+        footerCommunity: "ชุมชน",
+        footerMarket: "ตลาด",
+        footerOnSite: "บนเว็บไซต์",
+        footerQuestion: "คำถาม",
+        footerMarkets: "ตลาดซื้อขาย",
+        footerOffers: "ข้อเสนอ",
+        footerSupport: "ซัพพอร์ต",
+        footerContact: "ติดต่อ",
+        footerSafety: "เคล็ดลับความปลอดภัย",
+        footerStatus: "สถานะ",
+        footerLegal: "กฎหมาย",
+        footerTerms: "เงื่อนไข",
+        footerPrivacy: "ความเป็นส่วนตัว",
+        footerCookies: "คุกกี้"
+      }
+    };
+
+    function setLanguage(lang) {
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      document.documentElement.lang = lang;
+      localStorage.setItem("xwingLanguage", lang);
+    }
+
+    const savedLanguage = localStorage.getItem("xwingLanguage") || "en";
+    setLanguage(savedLanguage);
+  </script>
+</body>
+</html>
